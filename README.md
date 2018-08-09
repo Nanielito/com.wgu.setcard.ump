@@ -117,7 +117,7 @@ Use the following prefix to create branches:
     URL:PORT/api/v1/public/users/register 
   @ BODY
     { 
-      "username": "USENAME", 
+      "username": "USERNAME", 
       "password": "PASSWORD"
     }
   @ RETURN
@@ -132,7 +132,7 @@ Use the following prefix to create branches:
     URL:PORT/api/v1/public/users/login 
   @ BODY
     { 
-      "username": "USENAME", 
+      "username": "USERNAME", 
       "password": "PASSWORD"
     }
   @ RETURN

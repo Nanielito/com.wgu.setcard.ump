@@ -106,6 +106,58 @@ Use the following prefix to create branches:
 * feature/FUNCTIONALITY-NAME for normal development.
 * fix/ISSUE-DESCRIPTION for bug's fix.
 
+## RESTful API resources:
+
+### POST:
+
+* User register:    
+  Registers a new user.
+  ``` bash
+  @ CALL
+    URL:PORT/api/v1/public/users/register 
+  @ BODY
+    { 
+      "username": "USENAME", 
+      "password": "PASSWORD"
+    }
+  @ RETURN
+    A string which represents an authentication token:
+      eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyiwuVrJSKk4tSU4sSlHSUcpMLFGyMjQ1Nja3MLU0MtZRSq0ogAhYmBsZgwRKi1OL8hJzU4HaElNyM_OUagEjqHVrRgAAAA.lY_Q1b8db4yDU_Y4ZR99yvriH5n0Pnlrcfe2uWC5eJs
+  ```
+
+* User login:    
+  Authenticates a user.
+  ``` bash
+  @ CALL
+    URL:PORT/api/v1/public/users/login 
+  @ BODY
+    { 
+      "username": "USENAME", 
+      "password": "PASSWORD"
+    }
+  @ RETURN
+    A string which represents an authentication token:
+      eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ...
+  ```
+
+### GET:
+
+* Current user:
+  Gets the current user information.
+  ``` bash
+  @ CALL
+    URL:PORT/api/v1/users/current
+  @ HEADERS
+    - Authentication: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ...
+  @ RETURN
+    A JSON string:
+      {
+        "username": "USERNAME",
+        "password": "PASSWORD",
+        ...
+      }
+  ```
+
 ## Version
 v0.1.0-SNAPSHOT
 

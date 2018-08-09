@@ -55,4 +55,7 @@ gradle-app.setting
 ### IntelliJ IDEA ###
 .idea/
 
+# DockerUtils library
+docker/**/
+
 # End of https://www.gitignore.io/api/java,gradle,java-web,code-java

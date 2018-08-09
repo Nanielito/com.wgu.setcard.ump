@@ -107,7 +107,7 @@ Use the following prefix to create branches:
 * fix/ISSUE-DESCRIPTION for bug's fix.
 
 ## Version
-v0.1.0
+v0.1.0-SNAPSHOT
 
 ## Author
 * **DER** - *Initial work* - [nanielito](https://github.com/nanielito)

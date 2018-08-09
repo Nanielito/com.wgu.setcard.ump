@@ -3,7 +3,7 @@ package com.wgu.setcard.ump.service.impl;
 import static java.util.Objects.requireNonNull;
 
 import static io.jsonwebtoken.impl.TextCodec.BASE64;
-import static io.jsonwebtoken.SignatureAlgorithm.RS256;
+import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 
 import static org.apache.commons.lang3.StringUtils.substringBeforeLast;
 
@@ -79,7 +79,7 @@ final class TokenServiceImpl implements Clock, ITokenService {
 
     claims.putAll(attributes);
 
-    return Jwts.builder().setClaims(claims).signWith(RS256, secretKey).compressWith(COMPRESSION_CODEC).compact();
+    return Jwts.builder().setClaims(claims).signWith(HS256, secretKey).compressWith(COMPRESSION_CODEC).compact();
   }
 
   private static Map<String, String> parseClaims(final Supplier<Claims> toClaims) {

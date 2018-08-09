@@ -110,7 +110,7 @@ Use the following prefix to create branches:
 
 ### POST:
 
-* User register:    
+* User register:  
   Registers a new user.
   ``` bash
   @ CALL
@@ -125,7 +125,7 @@ Use the following prefix to create branches:
       eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ...
   ```
 
-* User login:    
+* User login:  
   Authenticates a user.
   ``` bash
   @ CALL
@@ -142,7 +142,7 @@ Use the following prefix to create branches:
 
 ### GET:
 
-* Current user:
+* Current user:  
   Gets the current user information.
   ``` bash
   @ CALL

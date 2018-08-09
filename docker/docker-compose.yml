@@ -1,0 +1,44 @@
+version: '3.2'
+services:
+  setcard-db:
+    image: mongo
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    container_name: setcard-db
+    hostname: setcard
+    networks:
+      - setcardnet
+    ports:
+      - "27017:27017"
+  setcard-ump:
+    image: setcard/setcard-ump
+    container_name: setcard-ump
+    hostname: setcard
+    depends_on:
+      - setcard-db
+    networks:
+      - setcardnet
+    environment:
+      - DB_HOST=setcard-db
+    ports:
+      - "8080:8080"
+  setcard-ump-dev:
+    image: setcard/setcard-ump
+    volumes:
+      - ./deployments:/setcard
+    container_name: setcard-ump-dev
+    hostname: setcard
+    depends_on:
+      - setcard-db
+    networks:
+      - setcardnet
+    environment:
+      - DB_HOST=setcard-db
+    ports:
+      - "8080:8080"
+networks:
+  setcardnet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.32.11.0/24

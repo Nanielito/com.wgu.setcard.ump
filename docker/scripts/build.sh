@@ -6,6 +6,6 @@ cd ..
 
 cp ../build/libs/*.jar .
 
-docker build --build-arg JAR_FILE=$JAR_FILE -t setcard/ump:latest .
+docker build --build-arg JAR_FILE=$JAR_FILE -t setcard/setcard-ump:latest .
 
 rm *.jar

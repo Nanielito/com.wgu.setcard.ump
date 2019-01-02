@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 import com.wgu.setcard.ump.service.spec.IUserAuthenticationService;
 
+/**
+ * Defines the <code>TokenAuthenticationProvider</code> class.
+ *
+ * @author danielramirez (https://github.com/nanielito)
+ */
 @Component
 public class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
@@ -28,6 +33,9 @@ public class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticati
 
   /* METHODS IMPLEMENTATIONS **************************************/
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void additionalAuthenticationChecks(
       final UserDetails userDetails,
@@ -35,16 +43,18 @@ public class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticati
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected UserDetails retrieveUser(
       final String username,
       final UsernamePasswordAuthenticationToken authenticationToken) {
     final Object token = authenticationToken.getCredentials();
 
-    return
-        Optional.ofNullable(token)
-          .map(String::valueOf)
-          .flatMap(userAuthenticationService::findByToken)
-          .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MESSAGE, token)));
+    return Optional.ofNullable(token)
+        .map(String::valueOf)
+        .flatMap(userAuthenticationService::findByToken)
+        .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MESSAGE, token)));
   }
 }

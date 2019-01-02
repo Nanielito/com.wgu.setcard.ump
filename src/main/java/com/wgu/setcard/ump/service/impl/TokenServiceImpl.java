@@ -22,10 +22,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.wgu.setcard.ump.service.spec.ITokenService;
-import com.wgu.setcard.ump.util.spec.IDateHelper;
+import com.wgu.setcard.ump.util.DateHelper;
 
+/**
+ * Defines the class implementation for {@link ITokenService} interface.
+ *
+ * @author danielramirez (https://github.com/nanielito)
+ */
 @Service
-final class TokenServiceImpl implements Clock, ITokenService {
+public final class TokenServiceImpl implements Clock, ITokenService {
 
   /* DEFINITIONS **************************************************/
 
@@ -42,20 +47,29 @@ final class TokenServiceImpl implements Clock, ITokenService {
 
   /* MEMBERS DECLARATIONS *****************************************/
 
-  private IDateHelper dateHelper;
-  private String      issuer;
-  private String      secretKey;
-  private int         expirationSeconds;
-  private int         clockSkewSeconds;
+  private DateHelper dateHelper;
+  private String     issuer;
+  private String     secretKey;
+  private int        expirationSeconds;
+  private int        clockSkewSeconds;
 
   /* CLASS CONSTRUCTORS *******************************************/
 
+  /**
+   * Initializes an instance of the class.
+   *
+   * @param dateHelper
+   * @param issuer
+   * @param expirationSeconds
+   * @param clockSkewSeconds
+   * @param secretKey
+   */
   public TokenServiceImpl(
-                                 final IDateHelper dateHelper,
-      @Value(JWT_ISSUER)         final String      issuer,
-      @Value(JWT_EXPIRATION_SEC) final int         expirationSeconds,
-      @Value(JWT_SKEW_SEC)       final int         clockSkewSeconds,
-      @Value(JWT_SECRET)         final String      secretKey) {
+                                 final DateHelper dateHelper,
+      @Value(JWT_ISSUER)         final String     issuer,
+      @Value(JWT_EXPIRATION_SEC) final int        expirationSeconds,
+      @Value(JWT_SKEW_SEC)       final int        clockSkewSeconds,
+      @Value(JWT_SECRET)         final String     secretKey) {
     super();
 
     this.dateHelper        = requireNonNull(dateHelper);
@@ -67,6 +81,14 @@ final class TokenServiceImpl implements Clock, ITokenService {
 
   /* METHODS IMPLEMENTATIONS **************************************/
 
+  /**
+   * Generates a <code>JWT</code> session token.
+   *
+   * @param attributes A <code>Map</code> which contains the information related to a user.
+   * @param expiresInSeconds A <code>Integer</code> which represents the session token expiration time.
+   *
+   * @return The <code>JWT</code> session token.
+   */
   private String generateToken(final Map<String, String> attributes, final int expiresInSeconds) {
     final DateTime now    = dateHelper.now();
     final Claims   claims = Jwts.claims().setIssuer(issuer).setIssuedAt(now.toDate());
@@ -82,6 +104,13 @@ final class TokenServiceImpl implements Clock, ITokenService {
     return Jwts.builder().setClaims(claims).signWith(HS256, secretKey).compressWith(COMPRESSION_CODEC).compact();
   }
 
+  /**
+   * Parses the <code>JWT</code> session token which had been created.
+   *
+   * @param toClaims The encode information related to <code>JWT</code> session token which had been created.
+   *
+   * @return The <code>Map</code> which contains the <code>JWT</code> session token created.
+   */
   private static Map<String, String> parseClaims(final Supplier<Claims> toClaims) {
     try {
       final Claims claims = toClaims.get();
@@ -98,16 +127,25 @@ final class TokenServiceImpl implements Clock, ITokenService {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String permanent(final Map<String, String> attributes) {
     return generateToken(attributes, 0);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String expiring(final Map<String, String> attributes) {
     return generateToken(attributes, expirationSeconds);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Map<String, String> verify(final String token) {
     final JwtParser parser = Jwts
@@ -120,6 +158,9 @@ final class TokenServiceImpl implements Clock, ITokenService {
     return parseClaims(() -> parser.parseClaimsJws(token).getBody());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Map<String, String> untrusted(final String token) {
     final JwtParser parser = Jwts
@@ -132,6 +173,9 @@ final class TokenServiceImpl implements Clock, ITokenService {
     return parseClaims(() -> parser.parseClaimsJws(withoutSignature).getBody());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Date now() {
     final DateTime now = dateHelper.now();

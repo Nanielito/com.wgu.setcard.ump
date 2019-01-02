@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Defines the entity class related to the <code>User</code> model.
+ *
+ * @author danielramirez (https://github.com/nanielito)
  */
 @Document(collection = "users")
 public class User implements UserDetails {
@@ -52,41 +54,87 @@ public class User implements UserDetails {
 
   /* METHODS IMPLEMENTATIONS **************************************/
 
+  /**
+   * Gets the <code>id</code> property value.
+   *
+   * @return The <code>id</code> property value.
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Gets the <code>username</code> property value.
+   *
+   * @return The <code>username</code> property value.
+   */
   @Override
   public String getUsername() {
     return username;
   }
 
+  /**
+   * Gets the <code>password</code> property value.
+   *
+   * @return The <code>password</code> property value.
+   */
   @Override
   public String getPassword() {
     return password;
   }
 
+  /**
+   * Sets the <code>password</code> property value.
+   *
+   * @param password A <code>String</code> which represents the password related to a user.
+   */
+  public void setPassword(final String password) {
+    this.password = password;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Collection<GrantedAuthority> getAuthorities() {
     return new ArrayList<>();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isAccountNonExpired() {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isAccountNonLocked() {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isEnabled() {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     ObjectMapper mapper = new ObjectMapper();

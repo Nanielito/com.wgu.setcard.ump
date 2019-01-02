@@ -26,6 +26,11 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import com.wgu.setcard.ump.config.authentication.TokenAuthenticationFilter;
 import com.wgu.setcard.ump.config.authentication.TokenAuthenticationProvider;
 
+/**
+ * Defines the security configuration component for application.
+ *
+ * @author danielramirez (https://github.com/nanielito)
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -77,6 +82,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   /* CLASS CONSTRUCTORS *******************************************/
 
+  /**
+   * Initializes an instance of the class.
+   *
+   * @param tokenAuthenticationProvider A {@link TokenAuthenticationProvider} which represents the token authentication
+   *                                    process to be used.
+   */
   SecurityConfiguration(final TokenAuthenticationProvider tokenAuthenticationProvider) {
     super();
     this.tokenAuthenticationProvider = requireNonNull(tokenAuthenticationProvider);
@@ -84,16 +95,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   /* METHODS IMPLEMENTATIONS **************************************/
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void configure(final AuthenticationManagerBuilder authenticationManagerBuilder) {
     authenticationManagerBuilder.authenticationProvider(tokenAuthenticationProvider);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void configure(WebSecurity webSecurity) throws Exception {
     webSecurity.ignoring().requestMatchers(PUBLIC_URLS);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity

@@ -18,7 +18,7 @@ public interface IUserService {
    *
    * @param user A {@link User} which represents the new user to be created.
    *
-   * @return The {@link User} which represents the user created.
+   * @return The {@link User} which represents the created user.
    */
   User createUser(User user);
 
@@ -27,7 +27,7 @@ public interface IUserService {
    *
    * @param id A <code>String</code> which represents the id related to the user to be searched.
    *
-   * @return The {@link User} which represents the user to be searched.
+   * @return The {@link User} which represents the searched user.
    */
   Optional<User> getUserById(String id);
 
@@ -36,7 +36,7 @@ public interface IUserService {
    *
    * @param username A <code>String</code> which represents the username related to the user to be searched.
    *
-   * @return The {@link User} which represents the user to be searched.
+   * @return The {@link User} which represents the searched user.
    */
   Optional<User> getUserByUsername(String username);
 

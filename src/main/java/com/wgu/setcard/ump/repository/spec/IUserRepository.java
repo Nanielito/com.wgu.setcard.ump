@@ -20,7 +20,7 @@ public interface IUserRepository extends MongoRepository<User, String> {
    *
    * @param user A {@link User} which represents the user to be inserted.
    *
-   * @return The {@link User} which represents the user inserted.
+   * @return The {@link User} which represents the inserted user.
    */
   User insert(User user);
 
@@ -29,7 +29,7 @@ public interface IUserRepository extends MongoRepository<User, String> {
    *
    * @param id A <code>String</code> which represents the id related to the user to be searched.
    *
-   * @return The {@link User} which represents the user to be searched.
+   * @return The {@link User} which represents the searched user.
    */
   Optional<User> findById(String id);
 
@@ -38,14 +38,14 @@ public interface IUserRepository extends MongoRepository<User, String> {
    *
    * @param username A <code>String</code> which represents the username related to the user to be searched.
    *
-   * @return The {@link User} which represents the user to be searched.
+   * @return The {@link User} which represents the searched user.
    */
   Optional<User> findByUsername(String username);
 
   /**
    * Saves a user into database.
    *
-   * @param user
+   * @param user A {@link User} which represents the user to be saved.
    *
    * @return The {@link User} which represents the updated user.
    */

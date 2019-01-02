@@ -45,7 +45,7 @@ public interface IUserRepository extends MongoRepository<User, String> {
   /**
    * Saves a user into database.
    *
-   * @param user A {@link User} which represents the user to be saved.
+   * @param user A {@link User} which represents the user to be updated.
    *
    * @return The {@link User} which represents the updated user.
    */

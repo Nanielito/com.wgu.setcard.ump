@@ -89,9 +89,6 @@ Go to Docker Compose page documentation (https://docs.docker.com/compose) to vie
 > $ gradle bootRun
 ```
 
-### To preview the app on web browser
-Go to http://localhost:8080
-
 ## Git Rules
 
 ### Commit messages:

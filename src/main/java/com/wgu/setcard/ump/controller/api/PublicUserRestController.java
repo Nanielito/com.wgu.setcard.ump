@@ -51,10 +51,9 @@ public class PublicUserRestController {
       @RequestParam("password") final String password) {
     return userAuthenticationService.login(username, password)
         .map(token -> ResponseEntity.ok(new AuthenticationResponse(token)))
-        .orElse(
-            ResponseEntity
-              .status(HttpStatus.UNAUTHORIZED)
-              .body(new AuthenticationErrorResponse(AUTHENTICATION_FAILED_MESSAGE)));
+        .orElseGet(() -> ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(new AuthenticationErrorResponse(AUTHENTICATION_FAILED_MESSAGE)));
   }
 
   @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,9 +64,8 @@ public class PublicUserRestController {
 
     return Optional.ofNullable(userService.createUser(newUser))
         .map(user -> login(user.getUsername(), password))
-        .orElse(
-            ResponseEntity
-              .status(HttpStatus.CONFLICT)
-              .body(new AuthenticationErrorResponse(USER_PREVIOUSLY_REGISTERED)));
+        .orElseGet(() -> ResponseEntity
+            .status(HttpStatus.CONFLICT)
+            .body(new AuthenticationErrorResponse(USER_PREVIOUSLY_REGISTERED)));
   }
 }

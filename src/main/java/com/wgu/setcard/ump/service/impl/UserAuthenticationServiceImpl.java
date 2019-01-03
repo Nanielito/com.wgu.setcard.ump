@@ -57,7 +57,7 @@ public class UserAuthenticationServiceImpl implements IUserAuthenticationService
   @Override
   public Optional<User> findByToken(final String token) {
     return Optional.of(tokenService.verify(token))
-        .map(map -> map.get(USERNAME_KEY))
+        .map(attributes -> attributes.get(USERNAME_KEY))
         .flatMap(userRepository::findByUsername);
   }
 
